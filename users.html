@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escuela Acme - Gestión de usuarios</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <acme-navbar></acme-navbar>
+
+  <main id="app" class="container">
+    <section class="card">
+      <h1>Gestión de usuarios</h1>
+      <p class="muted">Módulo privado para administración de usuarios.</p>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initStorage } from './js/services/storage.js';
+    initStorage();
+  </script>
+</body>
+</html>
