@@ -10,15 +10,9 @@
   <acme-navbar></acme-navbar>
 
   <main id="app" class="container container--narrow">
-    <section class="card">
-      <h1>Iniciar sesión</h1>
-      <p class="muted">Acceso a los módulos administrativos de la Escuela Acme.</p>
-    </section>
+    <acme-login></acme-login>
   </main>
 
-  <script type="module">
-    import { initStorage } from './js/services/storage.js';
-    initStorage();
-  </script>
+  <script type="module" src="./js/pages/login.js"></script>
 </body>
 </html>
