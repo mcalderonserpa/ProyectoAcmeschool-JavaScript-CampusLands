@@ -9,16 +9,13 @@
 <body>
   <acme-navbar></acme-navbar>
 
-  <main id="app" class="container">
+  <main id="app" class="container" hidden>
     <section class="card">
       <h1>Gestión de usuarios</h1>
       <p class="muted">Módulo privado para administración de usuarios.</p>
     </section>
   </main>
 
-  <script type="module">
-    import { initStorage } from './js/services/storage.js';
-    initStorage();
-  </script>
+  <script type="module" src="./js/pages/users.js"></script>
 </body>
 </html>
