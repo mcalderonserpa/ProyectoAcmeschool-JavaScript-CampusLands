@@ -141,6 +141,13 @@ function validateQuestion(data) {
     return 'Todas las respuestas deben tener una descripción.';
   }
 
+  const uniqueOptionTexts = new Set(
+    data.options.map((opt) => opt.text.toLowerCase())
+  );
+  if (uniqueOptionTexts.size !== data.options.length) {
+    return 'No puede haber respuestas repetidas en la misma pregunta.';
+  }
+
   const correctCount = data.options.filter((opt) => opt.isCorrect).length;
   if (correctCount !== 1) {
     return 'Debes marcar exactamente una respuesta como correcta.';

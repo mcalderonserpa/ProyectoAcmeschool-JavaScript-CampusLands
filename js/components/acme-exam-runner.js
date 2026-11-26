@@ -63,11 +63,12 @@ class AcmeExamRunner extends HTMLElement {
     this.endTime = Date.now() + totalSeconds * 1000;
 
     this.renderExamView(totalSeconds);
-    this.startTimer();
+    this.startTimer(totalSeconds);
   }
 
-  startTimer() {
+  startTimer(totalSeconds) {
     const timerEl = this.querySelector('[data-role="timer"]');
+    const dangerThreshold = Math.min(30, Math.max(10, Math.floor(totalSeconds * 0.25)));
 
     const tick = () => {
       if (this.isFinished) {
@@ -80,7 +81,7 @@ class AcmeExamRunner extends HTMLElement {
 
       if (timerEl) {
         timerEl.textContent = formatTime(remainingSeconds);
-        timerEl.classList.toggle('timer--danger', remainingSeconds <= 60);
+        timerEl.classList.toggle('timer--danger', remainingSeconds <= dangerThreshold);
       }
 
       if (remainingMs <= 0) {
@@ -128,11 +129,10 @@ class AcmeExamRunner extends HTMLElement {
 
     this.innerHTML = `
       <section
-        class="card"
-        style="position: sticky; top: 0.5rem; z-index: 10;"
+        class="card exam-header"
         aria-label="Encabezado del examen"
       >
-        <div class="row row--between">
+        <div class="row row--between exam-header__inner">
           <div>
             <h1>${escapeHtml(exam.title)}</h1>
             <p class="muted">
@@ -145,7 +145,7 @@ class AcmeExamRunner extends HTMLElement {
             </div>
           </div>
 
-          <div style="text-align: right;">
+          <div class="exam-header__timer">
             <div class="muted" style="font-size: 0.8rem;">Tiempo restante</div>
             <div class="timer" data-role="timer" aria-live="off">
               ${formatTime(initialSeconds)}

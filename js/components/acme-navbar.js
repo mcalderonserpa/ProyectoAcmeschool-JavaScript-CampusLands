@@ -25,13 +25,13 @@ class AcmeNavbar extends HTMLElement {
         <a href="./exams.html" class="navbar__link ${this.isCurrentPage('exams.html') ? 'navbar__link--active' : ''}">
           Gestión de Exámenes
         </a>
-        <span class="badge" title="${escapeHtml(user.email)}">${escapeHtml(user.fullName)} (${escapeHtml(user.role)})</span>
+        <span class="badge navbar__user" title="${escapeHtml(user.email)}">${escapeHtml(user.fullName)} (${escapeHtml(user.role)})</span>
         <button type="button" class="btn btn--secondary btn--sm" data-action="logout">
           Cerrar sesión
         </button>
       `
       : `
-        <a href="./login.html" class="navbar__link ${this.isCurrentPage('login.html') ? 'navbar__link--active' : ''}">
+        <a href="./index.html" class="navbar__link ${this.isCurrentPage('index.html') ? 'navbar__link--active' : ''}">
           Iniciar sesión
         </a>
       `;
@@ -39,9 +39,9 @@ class AcmeNavbar extends HTMLElement {
     this.innerHTML = `
       <header class="navbar">
         <nav class="navbar__inner" aria-label="Navegación principal">
-          <a href="./index.html" class="navbar__brand">Escuela Acme</a>
+          <a href="${user ? './users.html' : './index.html'}" class="navbar__brand">Escuela Acme</a>
           <div class="navbar__links">
-            <a href="./index.html" class="navbar__link ${this.isCurrentPage('index.html') ? 'navbar__link--active' : ''}">
+            <a href="./public-exams.html" class="navbar__link ${this.isCurrentPage('public-exams.html') ? 'navbar__link--active' : ''}">
               Resolver Exámenes
             </a>
             ${privateLinks}
@@ -52,7 +52,7 @@ class AcmeNavbar extends HTMLElement {
 
     const logoutBtn = this.querySelector('[data-action="logout"]');
     if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => logout('./login.html'));
+      logoutBtn.addEventListener('click', () => logout('./index.html'));
     }
   }
 }
