@@ -114,3 +114,138 @@ export function deleteExam(examId) {
   saveExams(remaining);
   return { ok: true };
 }
+
+function normalizeQuestionInput(raw) {
+  const text = String(raw.text ?? '').trim();
+  const rawOptions = Array.isArray(raw.options) ? raw.options : [];
+  const options = rawOptions.map((opt) => ({
+    id: opt.id || generateId('opt'),
+    text: String(opt.text ?? '').trim(),
+    isCorrect: Boolean(opt.isCorrect),
+  }));
+
+  return { text, options };
+}
+
+function validateQuestion(data) {
+  if (!data.text) {
+    return 'El enunciado de la pregunta es obligatorio.';
+  }
+
+  if (data.options.length < 2) {
+    return 'Cada pregunta debe tener al menos 2 respuestas.';
+  }
+
+  const hasEmptyOption = data.options.some((opt) => !opt.text);
+  if (hasEmptyOption) {
+    return 'Todas las respuestas deben tener una descripción.';
+  }
+
+  const correctCount = data.options.filter((opt) => opt.isCorrect).length;
+  if (correctCount !== 1) {
+    return 'Debes marcar exactamente una respuesta como correcta.';
+  }
+
+  return null;
+}
+
+export function addQuestion(examId, rawData) {
+  const exams = getExams();
+  const examIndex = exams.findIndex((exam) => exam.id === examId);
+
+  if (examIndex === -1) {
+    return { ok: false, error: 'El examen no existe.' };
+  }
+
+  const data = normalizeQuestionInput(rawData);
+  const error = validateQuestion(data);
+  if (error) {
+    return { ok: false, error };
+  }
+
+  const newQuestion = {
+    id: generateId('q'),
+    text: data.text,
+    options: data.options,
+  };
+
+  const currentQuestions = Array.isArray(exams[examIndex].questions)
+    ? exams[examIndex].questions
+    : [];
+
+  exams[examIndex] = {
+    ...exams[examIndex],
+    questions: [...currentQuestions, newQuestion],
+  };
+
+  saveExams(exams);
+  return { ok: true, question: newQuestion };
+}
+
+export function updateQuestion(examId, questionId, rawData) {
+  const exams = getExams();
+  const examIndex = exams.findIndex((exam) => exam.id === examId);
+
+  if (examIndex === -1) {
+    return { ok: false, error: 'El examen no existe.' };
+  }
+
+  const currentQuestions = Array.isArray(exams[examIndex].questions)
+    ? exams[examIndex].questions
+    : [];
+  const questionIndex = currentQuestions.findIndex((q) => q.id === questionId);
+
+  if (questionIndex === -1) {
+    return { ok: false, error: 'La pregunta seleccionada no existe.' };
+  }
+
+  const data = normalizeQuestionInput(rawData);
+  const error = validateQuestion(data);
+  if (error) {
+    return { ok: false, error };
+  }
+
+  const updatedQuestion = {
+    id: questionId,
+    text: data.text,
+    options: data.options,
+  };
+
+  const nextQuestions = [...currentQuestions];
+  nextQuestions[questionIndex] = updatedQuestion;
+
+  exams[examIndex] = {
+    ...exams[examIndex],
+    questions: nextQuestions,
+  };
+
+  saveExams(exams);
+  return { ok: true, question: updatedQuestion };
+}
+
+export function deleteQuestion(examId, questionId) {
+  const exams = getExams();
+  const examIndex = exams.findIndex((exam) => exam.id === examId);
+
+  if (examIndex === -1) {
+    return { ok: false, error: 'El examen no existe.' };
+  }
+
+  const currentQuestions = Array.isArray(exams[examIndex].questions)
+    ? exams[examIndex].questions
+    : [];
+  const nextQuestions = currentQuestions.filter((q) => q.id !== questionId);
+
+  if (nextQuestions.length === currentQuestions.length) {
+    return { ok: false, error: 'La pregunta no fue encontrada.' };
+  }
+
+  exams[examIndex] = {
+    ...exams[examIndex],
+    questions: nextQuestions,
+  };
+
+  saveExams(exams);
+  return { ok: true };
+}
+

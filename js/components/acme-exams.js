@@ -56,6 +56,14 @@ class AcmeExams extends HTMLElement {
                   <div class="row">
                     <button
                       type="button"
+                      class="btn btn--primary btn--sm"
+                      data-action="questions"
+                      data-id="${escapeHtml(exam.id)}"
+                    >
+                      Preguntas
+                    </button>
+                    <button
+                      type="button"
                       class="btn btn--secondary btn--sm"
                       data-action="edit"
                       data-id="${escapeHtml(exam.id)}"
@@ -213,6 +221,17 @@ class AcmeExams extends HTMLElement {
         this.render();
       });
     }
+
+    this.querySelectorAll('[data-action="questions"]').forEach((button) => {
+      button.addEventListener('click', () => {
+        this.dispatchEvent(
+          new CustomEvent('manage-questions', {
+            bubbles: true,
+            detail: { examId: button.dataset.id },
+          })
+        );
+      });
+    });
 
     this.querySelectorAll('[data-action="edit"]').forEach((button) => {
       button.addEventListener('click', () => {
