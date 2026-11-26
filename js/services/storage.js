@@ -24,7 +24,7 @@ const SEED_EXAMS = [
     title: 'Fundamentos de JavaScript',
     durationMinutes: 5,
     passingPercentage: 60,
-    description: 'Evaluación básica sobre variables, tipos de datos y funciones en JavaScript.',
+    description: 'Evaluación general sobre variables, JSON, DOM y almacenamiento en JavaScript.',
     questions: [
       {
         id: 'q-1',
@@ -51,6 +51,80 @@ const SEED_EXAMS = [
           { id: 'opt-3-1', text: 'localStorage', isCorrect: true },
           { id: 'opt-3-2', text: 'historyAPI', isCorrect: false },
           { id: 'opt-3-3', text: 'consoleStorage', isCorrect: false },
+        ],
+      },
+      {
+        id: 'q-4',
+        text: '¿Qué método registra un nuevo Web Component personalizado en el navegador?',
+        options: [
+          { id: 'opt-4-1', text: 'document.createComponent()', isCorrect: false },
+          { id: 'opt-4-2', text: 'customElements.define()', isCorrect: true },
+          { id: 'opt-4-3', text: 'window.registerElement()', isCorrect: false },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'exm-js-fast',
+    code: 'JS-1MIN',
+    title: 'Prueba Rápida de JavaScript (1 min)',
+    durationMinutes: 1,
+    passingPercentage: 60,
+    description: 'Examen corto de 1 minuto para evaluar agilidad en conceptos clave de JS.',
+    questions: [
+      {
+        id: 'qf-1',
+        text: '¿Qué operador compara valor y tipo de dato de forma estricta?',
+        options: [
+          { id: 'optf-1-1', text: '==', isCorrect: false },
+          { id: 'optf-1-2', text: '===', isCorrect: true },
+          { id: 'optf-1-3', text: '=', isCorrect: false },
+        ],
+      },
+      {
+        id: 'qf-2',
+        text: '¿Qué método de Array crea un nuevo arreglo con los elementos que cumplen una condición?',
+        options: [
+          { id: 'optf-2-1', text: 'filter()', isCorrect: true },
+          { id: 'optf-2-2', text: 'forEach()', isCorrect: false },
+          { id: 'optf-2-3', text: 'push()', isCorrect: false },
+        ],
+      },
+      {
+        id: 'qf-3',
+        text: '¿Cuál es el tipo de dato que devuelve typeof null en JavaScript?',
+        options: [
+          { id: 'optf-3-1', text: '"null"', isCorrect: false },
+          { id: 'optf-3-2', text: '"undefined"', isCorrect: false },
+          { id: 'optf-3-3', text: '"object"', isCorrect: true },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'exm-web-3',
+    code: 'WEB-003',
+    title: 'Introducción a HTML y Web',
+    durationMinutes: 10,
+    passingPercentage: 70,
+    description: 'Conceptos básicos sobre etiquetas semánticas y estructura de documentos web.',
+    questions: [
+      {
+        id: 'qw-1',
+        text: '¿Qué atributo permite cargar un archivo JavaScript usando ES Modules?',
+        options: [
+          { id: 'optw-1-1', text: 'type="module"', isCorrect: true },
+          { id: 'optw-1-2', text: 'mode="esm"', isCorrect: false },
+          { id: 'optw-1-3', text: 'script="import"', isCorrect: false },
+        ],
+      },
+      {
+        id: 'qw-2',
+        text: '¿Qué etiqueta HTML representa el contenido principal único de una página?',
+        options: [
+          { id: 'optw-2-1', text: '<section>', isCorrect: false },
+          { id: 'optw-2-2', text: '<main>', isCorrect: true },
+          { id: 'optw-2-3', text: '<div>', isCorrect: false },
         ],
       },
     ],
@@ -133,3 +207,5 @@ export function saveSession(sessionUser) {
 export function clearSession() {
   localStorage.removeItem(STORAGE_KEYS.SESSION);
 }
+
+initStorage();

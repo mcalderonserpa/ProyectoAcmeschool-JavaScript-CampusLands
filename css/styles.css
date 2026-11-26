@@ -204,7 +204,7 @@ textarea {
   color: #fff;
 }
 
-.btn--primary:hover {
+.btn--primary:hover:not(:disabled) {
   background: var(--primary-hover);
 }
 
@@ -214,7 +214,7 @@ textarea {
   border-color: var(--border);
 }
 
-.btn--secondary:hover {
+.btn--secondary:hover:not(:disabled) {
   background: var(--bg);
 }
 
@@ -223,8 +223,13 @@ textarea {
   color: #fff;
 }
 
-.btn--danger:hover {
+.btn--danger:hover:not(:disabled) {
   background: var(--danger-hover);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .btn--sm {
@@ -331,6 +336,16 @@ th {
   background: var(--bg);
 }
 
+.exam-header {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 10;
+}
+
+.exam-header__timer {
+  text-align: right;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
@@ -338,10 +353,79 @@ th {
 
 @media (max-width: 640px) {
   .container {
-    padding: 1rem 0.75rem 2rem;
+    padding: 0.9rem 0.75rem 2rem;
   }
 
   .card {
-    padding: 1rem;
+    padding: 0.95rem;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.08rem;
+  }
+
+  .navbar__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar__links {
+    width: 100%;
+    gap: 0.45rem;
+  }
+
+  .navbar__user {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .exam-header {
+    top: 0;
+    padding: 0.65rem 0.8rem;
+  }
+
+  .exam-header h1 {
+    font-size: 1.05rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .exam-header .muted {
+    font-size: 0.82rem;
+  }
+
+  .exam-header .badge {
+    font-size: 0.72rem;
+    padding: 0.1rem 0.4rem;
+  }
+
+  .exam-header__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
+  }
+
+  .exam-header__timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .timer {
+    font-size: 1rem;
+    padding: 0.2rem 0.55rem;
+  }
+
+  th, td {
+    padding: 0.5rem 0.55rem;
+    font-size: 0.86rem;
   }
 }

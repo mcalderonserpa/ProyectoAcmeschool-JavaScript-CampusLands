@@ -5,7 +5,7 @@ import '../components/acme-users.js';
 
 initStorage();
 
-if (requireAuth('./login.html')) {
+if (requireAuth('./index.html')) {
   const app = document.getElementById('app');
   if (app) {
     app.innerHTML = '<acme-users></acme-users>';

@@ -53,12 +53,12 @@ export function login(email, password) {
   return { ok: true, user: sessionUser };
 }
 
-export function logout(redirectTo = './login.html') {
+export function logout(redirectTo = './index.html') {
   clearSession();
   window.location.replace(redirectTo);
 }
 
-export function requireAuth(redirectTo = './login.html') {
+export function requireAuth(redirectTo = './index.html') {
   if (!isAuthenticated()) {
     window.location.replace(redirectTo);
     return false;

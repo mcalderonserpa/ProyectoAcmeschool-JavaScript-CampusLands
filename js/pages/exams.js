@@ -6,7 +6,7 @@ import '../components/acme-exam-questions.js';
 
 initStorage();
 
-if (requireAuth('./login.html')) {
+if (requireAuth('./index.html')) {
   const app = document.getElementById('app');
 
   const showExamsList = () => {

@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Escuela Acme - Exámenes</title>
+  <title>Escuela Acme - Iniciar sesión</title>
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
   <acme-navbar></acme-navbar>
 
-  <main id="app" class="container"></main>
+  <main id="app" class="container container--narrow">
+    <acme-login></acme-login>
+  </main>
 
-  <script type="module" src="./js/pages/index.js"></script>
+  <script type="module" src="./js/pages/login.js"></script>
 </body>
 </html>
